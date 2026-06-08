@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Entrar | Rotaract Manager</title>
+    <link rel="stylesheet" href="/css/styles.css" />
+  </head>
+  <body class="login-page">
+    <section class="login-hero">
+      <div class="brand">
+        <span class="brand-mark">R</span>
+        <div>
+          <strong>Rotaract Manager</strong>
+          <small>Projetos, tarefas e membros do club</small>
+        </div>
+      </div>
+
+      <div>
+        <h1>Gestao simples para projetos do Rotaract.</h1>
+        <p>
+          Organize projetos em andamento, distribua tarefas entre membros, acompanhe prazos e mantenha
+          uma visao geral do que o club esta construindo.
+        </p>
+      </div>
+    </section>
+
+    <main class="login-panel">
+      <section class="login-card">
+        <h2>Entrar</h2>
+        <p>Acesse como presidente ou membro usando o usuario cadastrado.</p>
+        <div id="loginError" class="notice hidden"></div>
+        <form id="loginForm" class="form">
+          <div class="field">
+            <label for="username">Usuario</label>
+            <input id="username" name="username" autocomplete="username" required />
+          </div>
+          <div class="field">
+            <label for="password">Senha</label>
+            <input id="password" name="password" type="password" autocomplete="current-password" required />
+          </div>
+          <button class="primary-button" type="submit">Entrar</button>
+        </form>
+        <p class="helper">Primeiro acesso do presidente: usuario <strong>presidente</strong>, senha <strong>admin123</strong>.</p>
+      </section>
+    </main>
+
+    <script src="/js/login.js"></script>
+  </body>
+</html>

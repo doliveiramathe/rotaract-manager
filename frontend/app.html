@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Rotaract Manager</title>
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <div class="brand">
+          <span class="brand-mark">R</span>
+          <div>
+            <strong>Rotaract</strong>
+            <small>Gestao de projetos</small>
+          </div>
+        </div>
+
+        <nav id="nav" class="nav"></nav>
+
+        <div class="user-card">
+          <span id="userName">Usuario</span>
+          <small id="userRole">perfil</small>
+          <button id="logoutBtn" class="ghost-button" type="button">Sair</button>
+        </div>
+      </aside>
+
+      <main class="workspace">
+        <header class="topbar">
+          <div>
+            <p class="eyebrow">Rotaract Club</p>
+            <h1 id="pageTitle">Painel</h1>
+          </div>
+          <div id="stats" class="stats"></div>
+        </header>
+
+        <section id="notice" class="notice hidden"></section>
+        <section id="content" class="content"></section>
+      </main>
+    </div>
+
+    <template id="emptyTemplate">
+      <div class="empty-state">
+        <strong>Nada cadastrado ainda</strong>
+        <span>Quando voce registrar informacoes, elas aparecem aqui.</span>
+      </div>
+    </template>
+
+    <script src="js/local-store.js"></script>
+    <script src="js/app.js"></script>
+  </body>
+</html>
