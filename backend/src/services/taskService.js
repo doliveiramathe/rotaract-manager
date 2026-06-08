@@ -26,6 +26,7 @@ function mapTaskPatchInput(input) {
     dueDate: input.due_date,
     priority: input.priority,
     status: input.status,
+    completionDescription: input.completion_description?.trim(),
   };
 }
 
@@ -51,6 +52,8 @@ async function updateTask({ taskId, input, user }) {
     await validateMemberTaskUpdate({ taskId, input, memberId: user.id });
   }
 
+  validateCompletionDescription(input);
+
   const mappedInput = mapTaskPatchInput(input);
   await taskRepository.updateTask(taskId, mappedInput);
 
@@ -65,8 +68,16 @@ async function validateMemberTaskUpdate({ taskId, input, memberId }) {
   const assignment = await taskRepository.findAssignment(taskId, memberId);
   const changedFields = Object.keys(input);
 
-  if (!assignment || changedFields.some((key) => key !== "status")) {
+  const allowedFields = ["status", "completion_description"];
+
+  if (!assignment || changedFields.some((key) => !allowedFields.includes(key))) {
     throw httpError(403, "Você pode alterar apenas o status das suas tarefas.");
+  }
+}
+
+function validateCompletionDescription(input) {
+  if (input.status === "realizada" && !input.completion_description?.trim()) {
+    throw httpError(400, "Informe uma descrição do que foi realizado.");
   }
 }
 

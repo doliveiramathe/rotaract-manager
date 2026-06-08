@@ -81,6 +81,7 @@ async function createTables() {
       due_date TEXT NOT NULL,
       priority TEXT NOT NULL DEFAULT 'media' CHECK(priority IN ('baixa', 'media', 'alta')),
       status TEXT NOT NULL DEFAULT 'nao_realizada' CHECK(status IN ('nao_realizada', 'realizada')),
+      completion_description TEXT,
       created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
       FOREIGN KEY(project_id) REFERENCES projects(id) ON DELETE CASCADE
     )
@@ -95,6 +96,23 @@ async function createTables() {
       FOREIGN KEY(member_id) REFERENCES members(id) ON DELETE CASCADE
     )
   `);
+}
+
+async function addColumnIfMissing({ table, column, definition }) {
+  const columns = await all(`PRAGMA table_info(${table})`);
+  const exists = columns.some((item) => item.name === column);
+
+  if (!exists) {
+    await run(`ALTER TABLE ${table} ADD COLUMN ${column} ${definition}`);
+  }
+}
+
+async function migrateSchema() {
+  await addColumnIfMissing({
+    table: "tasks",
+    column: "completion_description",
+    definition: "TEXT",
+  });
 }
 
 async function seedPresident() {
@@ -112,6 +130,7 @@ async function seedPresident() {
 
 async function initDatabase() {
   await createTables();
+  await migrateSchema();
   await seedPresident();
 }
 

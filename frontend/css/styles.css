@@ -444,6 +444,17 @@ textarea {
   gap: 8px;
 }
 
+.completion-note {
+  margin: 0;
+  border-left: 3px solid var(--green);
+  background: #eefaf4;
+  border-radius: 6px;
+  color: #244d3b;
+  padding: 9px 10px;
+  font-size: 0.9rem;
+  line-height: 1.45;
+}
+
 .checklist {
   display: grid;
   max-height: 180px;

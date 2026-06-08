@@ -158,6 +158,7 @@
           due_date: body.due_date,
           priority: body.priority || "media",
           status: body.status || "nao_realizada",
+          completion_description: body.completion_description || "",
           member_ids: body.member_ids || [],
           created_at: new Date().toISOString(),
         };
@@ -179,6 +180,7 @@
           due_date: body.due_date ?? task.due_date,
           priority: body.priority ?? task.priority,
           status: body.status ?? task.status,
+          completion_description: body.completion_description ?? task.completion_description,
           member_ids: body.member_ids ?? task.member_ids,
         });
         write(data);

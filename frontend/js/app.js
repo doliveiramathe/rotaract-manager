@@ -213,6 +213,11 @@ function taskCard(task, canToggle = true) {
         </div>
       </div>
       ${task.description ? `<p class="helper">${task.description}</p>` : ""}
+      ${
+        task.completion_description
+          ? `<p class="completion-note"><strong>Descrição da entrega:</strong> ${task.completion_description}</p>`
+          : ""
+      }
       <div class="task-actions">${action}${remove}</div>
     </article>
   `;
@@ -229,10 +234,10 @@ function groupByActiveProjects(tasks) {
 
 function bindTaskActions() {
   content.querySelectorAll("[data-complete-task]").forEach((button) => {
-    button.addEventListener("click", () => updateTaskStatus(button.dataset.completeTask, "realizada"));
+    button.addEventListener("click", () => completeTask(button.dataset.completeTask));
   });
   content.querySelectorAll("[data-reopen-task]").forEach((button) => {
-    button.addEventListener("click", () => updateTaskStatus(button.dataset.reopenTask, "nao_realizada"));
+    button.addEventListener("click", () => updateTaskStatus(button.dataset.reopenTask, "nao_realizada", ""));
   });
   content.querySelectorAll("[data-delete-task]").forEach((button) => {
     button.addEventListener("click", () => deleteTask(button.dataset.deleteTask));
@@ -524,10 +529,21 @@ async function createMember(event) {
   render();
 }
 
-async function updateTaskStatus(taskId, status) {
+async function completeTask(taskId) {
+  const completionDescription = window.prompt("Descreva o que foi realizado nessa tarefa:");
+
+  if (!completionDescription?.trim()) {
+    showNotice("Informe uma descrição para marcar a tarefa como realizada.");
+    return;
+  }
+
+  await updateTaskStatus(taskId, "realizada", completionDescription);
+}
+
+async function updateTaskStatus(taskId, status, completionDescription) {
   await api(`/api/tasks/${taskId}`, {
     method: "PATCH",
-    body: JSON.stringify({ status }),
+    body: JSON.stringify({ status, completion_description: completionDescription }),
   });
   showNotice(status === "realizada" ? "Tarefa marcada como realizada." : "Tarefa reaberta.");
   await loadData();

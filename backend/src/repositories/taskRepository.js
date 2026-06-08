@@ -56,16 +56,17 @@ async function createTask({ projectId, title, description, dueDate, priority, st
   return findTaskWithAssignees(result.lastID);
 }
 
-async function updateTask(id, { title, description, dueDate, priority, status }) {
+async function updateTask(id, { title, description, dueDate, priority, status, completionDescription }) {
   await run(
     `UPDATE tasks
      SET title = COALESCE(?, title),
          description = COALESCE(?, description),
          due_date = COALESCE(?, due_date),
          priority = COALESCE(?, priority),
-         status = COALESCE(?, status)
+         status = COALESCE(?, status),
+         completion_description = COALESCE(?, completion_description)
      WHERE id = ?`,
-    [title, description, dueDate, priority, status, id]
+    [title, description, dueDate, priority, status, completionDescription, id]
   );
 }
 
