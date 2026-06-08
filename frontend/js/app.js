@@ -80,12 +80,12 @@ function formatDate(value) {
 function statusLabel(value) {
   const labels = {
     andamento: "Em andamento",
-    concluido: "Concluido",
+    concluido: "Concluído",
     cancelado: "Cancelado",
     realizada: "Realizada",
-    nao_realizada: "Nao realizada",
+    nao_realizada: "Não realizada",
     baixa: "Baixa",
-    media: "Media",
+    media: "Média",
     alta: "Alta",
   };
   return labels[value] || value;
@@ -170,7 +170,7 @@ function projectCard(project) {
         <div>
           <h3>${project.name}</h3>
           <div class="meta">
-            <span>${formatDate(project.start_date)} ate ${formatDate(project.end_date)}</span>
+            <span>${formatDate(project.start_date)} até ${formatDate(project.end_date)}</span>
             <span>${project.total_tasks || 0} tarefas</span>
           </div>
         </div>
@@ -180,7 +180,7 @@ function projectCard(project) {
       <div class="progress" aria-label="Progresso do projeto">
         <span style="width: ${project.progress || 0}%"></span>
       </div>
-      <div class="meta"><span>${project.progress || 0}% concluido</span></div>
+      <div class="meta"><span>${project.progress || 0}% concluído</span></div>
     </article>
   `;
 }
@@ -204,7 +204,7 @@ function taskCard(task, canToggle = true) {
           <h3>${task.title}</h3>
           <div class="meta">
             <span>Prazo: ${formatDate(task.due_date)}</span>
-            <span>Responsaveis: ${task.assignees.map((member) => member.name).join(", ") || "Sem responsavel"}</span>
+            <span>Responsáveis: ${task.assignees.map((member) => member.name).join(", ") || "Sem responsável"}</span>
           </div>
         </div>
         <div class="meta">
@@ -251,12 +251,12 @@ function renderProjects() {
             <input id="projectName" name="name" required />
           </div>
           <div class="field">
-            <label for="projectDescription">Descricao</label>
-            <textarea id="projectDescription" name="description" placeholder="Objetivo, publico ou entregas principais"></textarea>
+            <label for="projectDescription">Descrição</label>
+            <textarea id="projectDescription" name="description" placeholder="Objetivo, público ou entregas principais"></textarea>
           </div>
           <div class="form-row">
             <div class="field">
-              <label for="projectStart">Inicio</label>
+              <label for="projectStart">Início</label>
               <input id="projectStart" name="start_date" type="date" required />
             </div>
             <div class="field">
@@ -268,7 +268,7 @@ function renderProjects() {
             <label for="projectStatus">Status</label>
             <select id="projectStatus" name="status">
               <option value="andamento">Em andamento</option>
-              <option value="concluido">Concluido</option>
+              <option value="concluido">Concluído</option>
               <option value="cancelado">Cancelado</option>
             </select>
           </div>
@@ -302,7 +302,7 @@ function renderTasks() {
             <input id="taskTitle" name="title" required />
           </div>
           <div class="field">
-            <label for="taskDescription">Descricao</label>
+            <label for="taskDescription">Descrição</label>
             <textarea id="taskDescription" name="description" placeholder="O que precisa ser entregue"></textarea>
           </div>
           <div class="form-row">
@@ -313,13 +313,13 @@ function renderTasks() {
             <div class="field">
               <label for="taskPriority">Prioridade</label>
               <select id="taskPriority" name="priority">
-                <option value="media">Media</option>
+                <option value="media">Média</option>
                 <option value="alta">Alta</option>
                 <option value="baixa">Baixa</option>
               </select>
             </div>
           </div>
-          <span class="checklist-label">Responsaveis</span>
+          <span class="checklist-label">Responsáveis</span>
           <div class="checklist">${membersChecklist()}</div>
           <button class="primary-button" type="submit">Criar tarefa</button>
         </form>
@@ -334,7 +334,7 @@ function renderTasks() {
                       <div class="card-header">
                         <div>
                           <h3>${project.name}</h3>
-                          <div class="meta"><span>${formatDate(project.start_date)} ate ${formatDate(project.end_date)}</span></div>
+                          <div class="meta"><span>${formatDate(project.start_date)} até ${formatDate(project.end_date)}</span></div>
                         </div>
                         <span class="badge andamento">Em andamento</span>
                       </div>
@@ -367,7 +367,7 @@ function renderMembers() {
             <input id="memberName" name="name" required />
           </div>
           <div class="field">
-            <label for="memberUsername">Usuario</label>
+            <label for="memberUsername">Usuário</label>
             <input id="memberUsername" name="username" required />
           </div>
           <div class="field">
@@ -429,7 +429,7 @@ function renderMyTasks() {
                       <div>
                         <h3>${project.name}</h3>
                         <div class="meta">
-                          <span>Projeto: ${formatDate(project.start_date)} ate ${formatDate(project.end_date)}</span>
+                          <span>Projeto: ${formatDate(project.start_date)} até ${formatDate(project.end_date)}</span>
                         </div>
                       </div>
                       <span class="badge andamento">Em andamento</span>
@@ -467,7 +467,7 @@ function renderGeneral() {
                       <div>
                         <h3>${project.name}</h3>
                         <div class="meta">
-                          <span>${formatDate(project.start_date)} ate ${formatDate(project.end_date)}</span>
+                          <span>${formatDate(project.start_date)} até ${formatDate(project.end_date)}</span>
                           <span>${project.total_tasks || 0} tarefas</span>
                         </div>
                       </div>
@@ -477,7 +477,7 @@ function renderGeneral() {
                     <div class="progress" aria-label="Progresso do projeto">
                       <span style="width: ${project.progress || 0}%"></span>
                     </div>
-                    <div class="meta"><span>${project.progress || 0}% concluido</span></div>
+                    <div class="meta"><span>${project.progress || 0}% concluído</span></div>
                     <div class="task-list">
                       ${tasks.length ? tasks.map((task) => taskCard(task, state.user.role === "presidente")).join("") : emptyState()}
                     </div>
@@ -536,7 +536,7 @@ async function updateTaskStatus(taskId, status) {
 
 async function deleteTask(taskId) {
   await api(`/api/tasks/${taskId}`, { method: "DELETE" });
-  showNotice("Tarefa excluida.");
+  showNotice("Tarefa excluída.");
   await loadData();
   render();
 }

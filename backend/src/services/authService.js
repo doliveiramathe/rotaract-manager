@@ -15,7 +15,7 @@ async function login({ username, password }) {
   const isValidPassword = user && (await bcrypt.compare(password || "", user.password_hash));
 
   if (!isValidPassword) {
-    throw httpError(401, "Usuario ou senha invalidos.");
+    throw httpError(401, "Usuário ou senha inválidos.");
   }
 
   const publicUser = toPublicUser(user);

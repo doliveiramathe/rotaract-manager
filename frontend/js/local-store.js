@@ -80,7 +80,7 @@
     login(username, password) {
       const data = read();
       const member = data.members.find((item) => item.username === username && item.password === password);
-      if (!member) throw new Error("Usuario ou senha invalidos.");
+      if (!member) throw new Error("Usuário ou senha inválidos.");
       const user = publicMember(member);
       return { token: `local-${user.id}-${Date.now()}`, user };
     },
@@ -97,7 +97,7 @@
       if (path === "/api/members" && method === "POST") {
         requirePresident(currentUser);
         if (data.members.some((member) => member.username === body.username)) {
-          throw new Error("Esse usuario ja existe.");
+          throw new Error("Esse usuário já existe.");
         }
         const member = {
           id: data.nextIds.member++,
@@ -169,9 +169,9 @@
       if (path.startsWith("/api/tasks/") && method === "PATCH") {
         const taskId = Number(path.split("/").pop());
         const task = data.tasks.find((item) => item.id === taskId);
-        if (!task) throw new Error("Tarefa nao encontrada.");
+        if (!task) throw new Error("Tarefa não encontrada.");
         if (currentUser.role !== "presidente" && !task.member_ids.includes(currentUser.id)) {
-          throw new Error("Voce pode alterar apenas o status das suas tarefas.");
+          throw new Error("Você pode alterar apenas o status das suas tarefas.");
         }
         Object.assign(task, {
           title: body.title ?? task.title,
@@ -193,7 +193,7 @@
         return null;
       }
 
-      throw new Error("Recurso nao encontrado.");
+      throw new Error("Recurso não encontrado.");
     },
   };
 })();

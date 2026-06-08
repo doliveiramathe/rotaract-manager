@@ -5,7 +5,7 @@ const { httpError } = require("../utils/httpError");
 
 function validateMemberInput({ name, username, password }) {
   if (!name || !username || !password) {
-    throw httpError(400, "Nome, usuario e senha sao obrigatorios.");
+    throw httpError(400, "Nome, usuário e senha são obrigatórios.");
   }
 }
 
@@ -23,13 +23,13 @@ async function registerMember(input) {
       role,
     });
   } catch (error) {
-    throw httpError(409, "Esse usuario ja existe.");
+    throw httpError(409, "Esse usuário já existe.");
   }
 }
 
 async function removeMember({ memberId, currentUserId }) {
   if (Number(memberId) === Number(currentUserId)) {
-    throw httpError(400, "Voce nao pode remover seu proprio acesso.");
+    throw httpError(400, "Você não pode remover seu próprio acesso.");
   }
 
   await deleteMember(memberId);

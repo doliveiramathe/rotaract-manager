@@ -3,7 +3,7 @@ const { httpError } = require("../utils/httpError");
 
 function validateTaskInput({ project_id, title, due_date, member_ids }) {
   if (!project_id || !title || !due_date || !member_ids?.length) {
-    throw httpError(400, "Projeto, tarefa, prazo e responsaveis sao obrigatorios.");
+    throw httpError(400, "Projeto, tarefa, prazo e responsáveis são obrigatórios.");
   }
 }
 
@@ -44,7 +44,7 @@ async function createTask(input) {
 async function updateTask({ taskId, input, user }) {
   const task = await taskRepository.findTaskById(taskId);
   if (!task) {
-    throw httpError(404, "Tarefa nao encontrada.");
+    throw httpError(404, "Tarefa não encontrada.");
   }
 
   if (user.role !== "presidente") {
@@ -66,7 +66,7 @@ async function validateMemberTaskUpdate({ taskId, input, memberId }) {
   const changedFields = Object.keys(input);
 
   if (!assignment || changedFields.some((key) => key !== "status")) {
-    throw httpError(403, "Voce pode alterar apenas o status das suas tarefas.");
+    throw httpError(403, "Você pode alterar apenas o status das suas tarefas.");
   }
 }
 

@@ -29,7 +29,7 @@ form.addEventListener("submit", async (event) => {
       data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.error || "Nao foi possivel entrar.");
+        throw new Error(data.error || "Não foi possível entrar.");
       }
     } catch (backendError) {
       if (!(backendError instanceof TypeError)) throw backendError;

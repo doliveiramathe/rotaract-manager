@@ -3,7 +3,7 @@ const { httpError } = require("../utils/httpError");
 
 function validateProjectInput({ name, start_date, end_date }) {
   if (!name || !start_date || !end_date) {
-    throw httpError(400, "Nome, inicio e fim do projeto sao obrigatorios.");
+    throw httpError(400, "Nome, início e fim do projeto são obrigatórios.");
   }
 }
 
